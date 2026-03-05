@@ -13,12 +13,23 @@ STYLES = [
     StyleInfo(name="dramatic",  description="Epic, over-the-top cinematic narrative"),
 ]
 
-@router.get("/styles", response_model=StylesResponse)
+@router.get(
+    "/styles",
+    response_model=StylesResponse,
+    summary="Get Available Styles",
+    description="Returns a list of all available narrative styles you can use when generating a story."
+)
 def get_styles():
     return StylesResponse(styles=STYLES)
 
 
-@router.post("/generate", response_model=StoryResponse, status_code=status.HTTP_200_OK)
+@router.post(
+    "/generate",
+    response_model=StoryResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Generate Story from Git Log",
+    description="Transform your git log into a creative narrative. Paste your git log output, choose a style, and get back an AI-generated story about your project's journey."
+)
 def generate(request: StoryRequest):
     try:
         result = generate_story(request)
